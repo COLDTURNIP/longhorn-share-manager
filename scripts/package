@@ -40,7 +40,6 @@ x86_64)
 esac
 
 if [[ ${TARGET_PLATFORMS} ]] ; then
-    IFS='/' read -r OS ARCH <<<"${TARGET_PLATFORMS}"
     BUILDX_ARGS+=('--platform' "${TARGET_PLATFORMS}")
 else
     BUILDX_ARGS+=('--platform' "linux/${BUILDERARCH}")
@@ -78,7 +77,7 @@ do
 done
 BASE_IMAGE=$(grep 'FROM.*AS release' package/Dockerfile | awk '{print $2}')
 
-echo "Building image ${IMAGE} based on ${BASE_IMAGE} with ARCH=${ARCH} SRC_BRANCH=${SRC_BRANCH} SRC_TAG=${SRC_TAG}"
+echo "Building image ${IMAGE} based on ${BASE_IMAGE} with SRC_BRANCH=${SRC_BRANCH} SRC_TAG=${SRC_TAG}"
 IMAGE_BUILD_CMD_ARGS=(
     build --no-cache \
     "${BUILDER_ARGS[@]}" \
